@@ -1,0 +1,24 @@
+server:
+  port: 8888
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+      
+spring:
+  application:
+    name: googlepay-gateway
+  cloud:
+    gateway:
+      routes:
+      - id: googlepay
+        uri: lb://googlepay-service
+        predicates:
+        - Path=/googlepay/**
+      - id: bank
+        uri: lb://bank-service
+        predicates:
+        - Path=/bank/**
